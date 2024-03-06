@@ -1,16 +1,17 @@
 import {Reponse} from "./Rickandmortydata.tsx";
 import {JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {CharactersProps, SetCharacterProps} from "./App.tsx";
 
 
-function CharacterPick() {
-    const [characters, setChars] = useState([...Reponse.results])
+function CharacterPick({characters, setCharacters}: CharactersProps) {
+
     const [searchTerm, setSearchTerm] = useState('');
     const [page, setPage] = useState(1);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
-        setChars(Reponse.results.filter((d) => d.name.startsWith(searchTerm)));
+        setCharacters(Reponse.results.filter((d) => d.name.startsWith(searchTerm)));
     }
     const handleNextPage = () => {
         setPage((prevPage) => prevPage + 1);
@@ -28,8 +29,8 @@ function CharacterPick() {
             <input type="text" placeholder="Search characters" onChange={handleSearch} />
             {currentCharacters.length > 0 ? (
                 currentCharacters.map((character, index) => (
-                <div>
-                    <div key={index}>{character.name}</div>
+                <div key={index}>
+                    <div>{character.name}</div>
                     <button onClick={() => navigate("/characterGallery/"+ character.name)}>search</button>
                 </div>
                 ))

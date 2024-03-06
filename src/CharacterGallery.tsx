@@ -10,6 +10,7 @@ export default function CharacterGallery(props: CharacterGalleryProps) {
     const params = useParams();
     const name: string | undefined = params.name;
 const navigate = useNavigate();
+
     return (
         <div>
             <p>
@@ -18,7 +19,8 @@ const navigate = useNavigate();
              <div onClick={() => navigate("/characterGallery")}>{name}</div>
             {props.characters.map(character => <CharacterCard
                                                                 key={character.id}
-                                                                character={character}/>)}
+                                                                character={character}
+            />)}
         </div>
     )
 }
